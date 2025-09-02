@@ -116,6 +116,7 @@ dependencies:
   - distlib=0.4.0=pyhd8ed1ab_0
   - dnspython=2.7.0=pyhff2d567_1
   - double-conversion=3.3.1=h5888daf_0
+  - dython=0.6.7.post2=pyhd8ed1ab_0
   - email-validator=2.3.0=pyhd8ed1ab_0
   - email_validator=2.3.0=hd8ed1ab_0
   - epoxy=1.5.10=h166bdaf_1
@@ -496,7 +497,10 @@ dependencies:
   - safetensors=0.6.2=py312h0ccc70a_1
   - scikit-image=0.25.2=py312hf9745cd_1
   - scikit-learn=1.7.1=py312h4f0b9e3_0
+  - scikit-plot=0.3.7=py_1
   - scipy=1.16.1=py312h7a1785b_1
+  - seaborn=0.13.2=hd8ed1ab_3
+  - seaborn-base=0.13.2=pyhd8ed1ab_3
   - semantic_version=2.10.0=pyhd8ed1ab_0
   - send2trash=1.8.2=py312h06a4308_1
   - sentencepiece=0.2.0=hc8f76dd_11
