@@ -1,6 +1,9 @@
 ## fraud-detection-case-study
 Fraud Detection Case Study: Identifying Credit Card Fraudulent Transactions.
 
+### Google Drive Download link for data and trained models
+[Drive](https://drive.google.com/drive/folders/1hiMQKO0TdaRoU8fq00BqmyyJKDfrrXWC?usp=sharing)
+
 ### Packages to install
 * __Note__: An Ubuntu 18.04 environment was utilized for the case study.
 * Python 3.12 environment.
