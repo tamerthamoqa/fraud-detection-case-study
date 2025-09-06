@@ -13,8 +13,72 @@ Fraud Detection Case Study: Identifying Credit Card Fraudulent Transactions.
     * ```pip install -r requirements_python_3_12.txt``` 
 
 
+### Case Study Analysis Stages
+* __Data Exploration__
+    * Descriptive analysis of the data
+    * Checking nulls and duplicate records
+    * Checking label imbalance
+    * Feature Associations plot
+    * Checking fraud transaction ratio per customer, merchant, and category
+    * Assuming that the labeling of fraud is highly correlated with transaction amount
+* __Baseline experiment stage__:
+    * __Feature engineering__
+        * Removing id columns (customer, merchant) and columns with only one value (zipcodeOri, zipMerchant)
+        * One-hot-encoding categorical columns and standard scaling numerical columns  
+    * __Train/validation/test 80/10/10 split__ (based on customer id)
+    * __Modeling__:
+        * Logistic Regression
+        * XGBoost
+        * Autogluon AutoML Tabular Predictor (ensemble of models)
+* __SMOTE experiment stage__:
+    * __Feature engineering__
+        * Removing id columns (customer, merchant) and columns with only one value (zipcodeOri, zipMerchant)
+        * One-hot-encoding categorical columns and standard scaling numerical columns  
+        * Adding SMOTE (Synthetic Minority Over-sampling Technique) to train set.
+    * __Modeling__:
+        * Logistic Regression
+        * XGBoost
+        * Autogluon AutoML Tabular Predictor (ensemble of models). 
+* __Temporal features experiment stage__:
+    * __Feature engineering__
+        * Adding temporal features on a per (customer, step) basis: lagsm accumulated values, etc.
+        * Removing id columns (customer, merchant) and columns with only one value (zipcodeOri, zipMerchant)
+        * One-hot-encoding categorical columns and standard scaling numerical columns  
+    * __Modeling__:
+        * Logistic Regression
+        * XGBoost
+        * Autogluon AutoML Tabular Predictor (ensemble of models)
+
+
+### Case Study Main Insights and Deliverables
+* There are customers, merchants, and categories with very high fraud transaction ratios. A dedicated list could be provided to the business for additional analysis. 
+* There is a clear statistical difference between the "Amount" values between non-fraudulent and fraudulent transactions: fraudulent transactions tend to higher higher amount values.
+* Main assumption is that the fraud labeling logic was heavily tied with the "Amount" values; this needs to be investigated with the business.
+* __Modeling results__:
+    * Train/validation/test splits were done on a customer basis, an entire customer's records could only be in only one set to avoid data leakage.
+        * The same train/validation/test splits would be shared across all modeling experiments for comparisons. 
+    * Three predictive models were used in progressing complexity:
+        * __Logistic Regression (baseline)__
+        * __XGBoost__
+        * __Autogluon Tabular Predictor (ensemble of 12 models including XGBoost)__
+    * Three modeling experiments were conducted:
+        * __Baseline__ (no feature additions)
+        * __SMOTE__ (adding SMOTE to train set)
+        * __Adding temporal features__
+    * The most importance features were the columns that had the most association with the "fraud" label as per the associations plot.
+    * Adding __temporal features improved model performance over the baseline__, while SMOTE in its current configuration did not improve over the baseline.
+    * The __best-performing model__ in all three experiments was the __Autogluon Ensemble__.
+
+### Next Steps
+* Communicating with the business regarding the following:
+    * Conducting a dedicated analysis on the most fraudulent entities (customers, merchants, categories) and validating the labeling logic for fraud.
+    * Possibly being provided more fine-grained timestamps in order to improve temporal features; as they greatly improved model performance. 
+* Applying an MLOps framework like an MLFlow environment to possibly accelerate future experiments.
+
+&nbsp;
 
 ### Case Study Description
+The following is the description of the case study.
 #### Introduction:
 In this case study, we will explore a fraud detection problem using a dataset containing information about credit card transactions. The goal is to build a model that can accurately classify transactions as fraudulent or benign based on various features associated with each transaction.
 
@@ -78,26 +142,3 @@ The main objective of this case study is to develop a predictive model that can 
     * Push the final model code to a Github and share the link.
     * Create a PowerPoint explaining the steps you have considered and why.
      Create recommendations and key outcomes which can be presented to the business teams.
-
-
-### Case study stages
-* __Data Exploration__
-* __Baseline experiment stage__:
-    * Feature engineering
-    * Train/validation/test split
-    * Modeling:
-        * Logistic Regression
-        * XGBoost
-        * Autogluon AutoML Tabular Predictor (ensemble of models)
-* __SMOTE experiment stage__:
-    * Feature engineering (adding SMOTE to train set)
-    * Modeling:
-        * Logistic Regression
-        * XGBoost
-        * Autogluon AutoML Tabular Predictor (ensemble of models). 
-* __Temporal features experiment stage__:
-    * Feature engineering (adding temporal features)
-    * Modeling:
-        * Logistic Regression
-        * XGBoost
-        * Autogluon AutoML Tabular Predictor (ensemble of models).
