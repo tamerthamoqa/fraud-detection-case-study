@@ -38,13 +38,16 @@ Fraud Detection Case Study: Identifying Credit Card Fraudulent Transactions.
         * Removing id columns (customer, merchant) and columns with only one value (zipcodeOri, zipMerchant)
         * One-hot-encoding categorical columns and standard scaling numerical columns  
         * Adding SMOTE (Synthetic Minority Over-sampling Technique) to train set.
+            * k_neighbours parameter was set to 10 neighbours.
     * __Modeling__:
         * Logistic Regression
         * XGBoost
         * Autogluon AutoML Tabular Predictor (ensemble of models). 
 * __Temporal features experiment stage__:
     * __Feature engineering__
-        * Adding temporal features on a per (customer, step) basis: lagsm accumulated values, etc.
+        * Adding temporal features on a per (customer, step) basis for the amount values: lags, accumulated values over specified step windows sizes: (7 steps, 30 steps).
+            * 25 additional features were added.
+            * Null values were imputed via Iterative Imputation method (MICE-style).
         * Removing id columns (customer, merchant) and columns with only one value (zipcodeOri, zipMerchant)
         * One-hot-encoding categorical columns and standard scaling numerical columns  
     * __Modeling__:
